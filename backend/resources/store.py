@@ -71,3 +71,7 @@ class StoreItems(MethodView):
             return list(store.items)  # Uses the 'backref' on ForeignKeyField in ItemModel
         except DoesNotExist:
             abort(404, message="Store not found.")
+@blp.route("/recipes")
+class StoreList(MethodView):
+    def get(self):
+        return [{"id": store.id, "name": store.name} for store in StoreModel.select()]

@@ -84,3 +84,21 @@ class ExtractRecipe(MethodView):
             ItemModel.create(name=step, store=recipe, type=instruction_type)
 
         return {"message": "Recipe extracted and saved", "recipe_id": recipe.id}
+
+@blp.route("/recipes/<int:recipe_id>")
+class GetRecipeDetail(MethodView):
+    def get(self, recipe_id):
+        store = StoreModel.get_or_none(StoreModel.id == recipe_id)
+        if not store:
+            return {"error": "Recipe not found"}, 404
+
+        items = ItemModel.select().where(ItemModel.store == store)
+        ingredients = [item.name for item in items if item.type.name == "ingredient"]
+        instructions = [item.name for item in items if item.type.name == "instruction"]
+
+        return {
+            "id": store.id,
+            "name": store.name,
+            "ingredients": ingredients,
+            "instructions": instructions
+        }

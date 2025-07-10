@@ -1,8 +1,6 @@
 <template lang="pug">
 #app
-  h1 Flask API Starter Frontend
-  AddItemForm(@item-added="fetchItems")
-  ItemList(:items="items" @delete-item="handleDelete")
+  router-view
 </template>
 
 <script setup>
