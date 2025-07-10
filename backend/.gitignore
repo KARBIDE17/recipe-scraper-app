@@ -1,0 +1,61 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+
+# Local configuration
+*.env
+.env.*
+
+# SQLite DBs
+*.db
+*.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Docker
+*.pid
+*.log
+*.pid.lock
+*.sock
+*.tar
+*.img
+*.bak
+*.old
+
+# Pytest cache
+.pytest_cache/
+.coverage
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Swagger UI CDN cache if added locally
+swagger-ui/
+
+# Node modules (if added for frontend later)
+node_modules/

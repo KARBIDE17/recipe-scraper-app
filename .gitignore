@@ -1,0 +1,34 @@
+# Root (applies to both frontend & backend if needed)
+.env
+*.env
+*.db
+*.sqlite3
+*.pyc
+__pycache__/
+.DS_Store
+.vscode/
+*.log
+
+# Node (frontend)
+node_modules/
+dist/
+.cache/
+*.local
+*.lock
+
+# Python (backend)
+backend/__pycache__/
+backend/*.pyc
+backend/.mypy_cache/
+backend/.pytest_cache/
+backend/instance/
+backend/.venv/
+backend/venv/
+backend/*.sqlite3
+backend/*.db
+
+# MacOS
+*.DS_Store
+
+# System files
+Thumbs.db

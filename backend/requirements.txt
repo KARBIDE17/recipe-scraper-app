@@ -1,0 +1,6 @@
+flask
+flask-cors
+flask-smorest
+python-dotenv
+marshmallow
+peewee==3.18.2
