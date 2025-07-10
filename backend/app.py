@@ -2,14 +2,17 @@ import os
 from flask import Flask
 from flask_smorest import Api
 from flask_cors import CORS
-
+from dotenv import load_dotenv
+load_dotenv()
 # Import Peewee models so tables can be created and used
 from models.store import StoreModel
 from models.item import ItemModel
+from models.item_type import ItemType
 
 # Import API blueprints
 from resources.item import blp as ItemBlueprint
 from resources.store import blp as StoreBlueprint
+from resources.recipe import blp as RecipeBlueprint
 
 # Import the Peewee database instance
 from database import db
@@ -39,9 +42,10 @@ def create_app():
     # Register your API blueprints (route collections)
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
+    api.register_blueprint(RecipeBlueprint)
 
     # Connect to the database and create necessary tables
     db.connect()
-    db.create_tables([StoreModel, ItemModel])
+    db.create_tables([StoreModel, ItemType, ItemModel])
 
     return app  # Return the Flask app instance

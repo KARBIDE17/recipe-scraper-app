@@ -1,7 +1,7 @@
 services:  # Define all the services (containers) used in the app
   web:  # Name of the service (you can call this whatever you want, e.g., flask-app)
-    build: .  # Build the Docker image using the Dockerfile in the current directory
+    build: ./backend  # Build the Docker image using the Dockerfile in the current directory
     ports:
-      - "5000:5000"  # Map port 5000 on the host to port 5000 in the container (host:container)
+      - "5005:5000"  # Map port 5000 on the host to port 5000 in the container (host:container)
     volumes:
       - .:/app  # Mount the current directory on the host to /app in the container (for live code changes)

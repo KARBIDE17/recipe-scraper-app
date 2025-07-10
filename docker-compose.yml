@@ -8,6 +8,8 @@ services:
       - "5005:5000"
     volumes:
       - ./backend:/app
+    env_file:
+      - ./backend/.env
     environment:
       - FLASK_ENV=development
     depends_on:
