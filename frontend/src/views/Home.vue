@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import api from '@/api'
 
 const url = ref('')
 const loading = ref(false)
@@ -31,7 +31,7 @@ const extractRecipe = async () => {
   message.value = ''
   error.value = ''
   try {
-    const res = await axios.post('http://localhost:5005/extract-recipe', { url: url.value })
+    const res = await api.post('http://localhost:5005/extract-recipe', { url: url.value })
     message.value = `Recipe saved! ID: ${res.data.recipe_id}`
     url.value = ''
   } catch (err) {
@@ -41,6 +41,7 @@ const extractRecipe = async () => {
   }
 }
 </script>
+
 
 <style scoped>
 .home {

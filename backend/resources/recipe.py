@@ -61,7 +61,11 @@ class ExtractRecipe(MethodView):
             )
 
             # Safely parse OpenAI's response
-            response_text = response.choices[0].message.content.strip()
+            response_text = response.choices[0].message.content
+
+            print("=== RAW AI RESPONSE ===")
+            print(response_text)
+
 
             if response_text.startswith("```"):
                 response_text = response_text.strip("`").strip()

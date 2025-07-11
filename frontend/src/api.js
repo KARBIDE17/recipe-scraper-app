@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000', // Your Flask API base URL
+  baseURL: 'http://localhost:5005', // Your Flask API base URL
 })
 
 // ITEMS

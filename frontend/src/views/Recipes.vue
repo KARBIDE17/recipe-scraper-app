@@ -9,13 +9,13 @@ section
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import api from '@/api'
 
 const recipes = ref([])
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:5005/recipes')
+    const response = await api.get('http://localhost:5005/recipes')
     recipes.value = response.data
   } catch (error) {
     console.error('Error fetching recipes:', error)

@@ -13,8 +13,8 @@ section
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import { useRoute } from 'vue-router'
+import api from '@/api'
 
 const route = useRoute()
 const recipe = ref({
@@ -25,10 +25,11 @@ const recipe = ref({
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`http://localhost:5005/recipes/${route.params.id}`)
+    const response = await api.get(`http://localhost:5005/recipes/${route.params.id}`)
     recipe.value = response.data
   } catch (error) {
     console.error('Error fetching recipe:', error)
   }
 })
 </script>
+
