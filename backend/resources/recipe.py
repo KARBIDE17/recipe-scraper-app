@@ -78,7 +78,7 @@ class ExtractRecipe(MethodView):
             return {"error": f"OpenAI failed: {e}", "raw_response": response.choices[0].message.content}, 500
 
         # Step 3: Save to DB
-        recipe = StoreModel.create(name=parsed["title"])
+        recipe, _ = StoreModel.get_or_create(name=parsed["title"])
         ingredient_type = ItemType.get(ItemType.name == "ingredient")
         instruction_type = ItemType.get(ItemType.name == "instruction")
 
