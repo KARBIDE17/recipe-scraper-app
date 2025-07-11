@@ -1,5 +1,7 @@
 <template lang="pug">
 #app
+  NavBar
+  h1 Recipe Scraper
   router-view
 </template>
 
@@ -7,6 +9,7 @@
 import { ref, onMounted } from 'vue'
 import AddItemForm from './components/AddItemForm.vue'
 import ItemList from './components/ItemList.vue'
+import NavBar from './components/NavBar.vue'
 import { getItems, deleteItem } from '@/api'
 
 const items = ref([])
