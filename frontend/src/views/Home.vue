@@ -14,7 +14,20 @@
   p(v-if="loading") Extracting recipe...
   p(v-if="message") {{ message }}
   p(v-if="error" style="color: red") {{ error }}
-  router-link(to="/recipes") View Saved Recipes
+
+  form(@submit.prevent="extractFromText")
+    textarea(
+      v-model="manualText"
+      placeholder="Paste a recipe’s title, ingredients, and instructions here..."
+      rows="10"
+      required
+    )
+    button(type="submit") Extract from Text
+  
+  p(v-if="loadingText") Extracting recipe...
+  p(v-if="textMessage") {{ textMessage }}
+  p(v-if="textError" style="color: red") {{ textError }}
+  
 </template>
 
 <script setup>
@@ -25,6 +38,10 @@ const url = ref('')
 const loading = ref(false)
 const message = ref('')
 const error = ref('')
+const manualText = ref('')
+const loadingText = ref(false)
+const textMessage = ref('')
+const textError = ref('')
 
 const extractRecipe = async () => {
   loading.value = true
@@ -38,6 +55,22 @@ const extractRecipe = async () => {
     error.value = err.response?.data?.error || 'Something went wrong.'
   } finally {
     loading.value = false
+  }
+}
+
+const extractFromText = async () => {
+  loadingText.value = true
+  textMessage.value = ''
+  textError.value = ''
+
+  try {
+    const res = await api.post('/extract-text-recipe', { text: manualText.value })
+    textMessage.value = res.data.message
+    manualText.value = ''
+  } catch (err) {
+    textError.value = err.response?.data?.error || 'Failed to extract recipe.'
+  } finally {
+    loadingText.value = false
   }
 }
 </script>

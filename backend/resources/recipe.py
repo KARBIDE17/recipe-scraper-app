@@ -147,3 +147,51 @@ class DeleteRecipe(MethodView):
 
         return {"message": "Recipe deleted successfully."}
 
+class ExtractFromTextSchema(Schema):
+    text = fields.String(required=True)
+
+@blp.route("/extract-text-recipe")
+class ExtractFromText(MethodView):
+    @blp.arguments(ExtractFromTextSchema)
+    def post(self, parsed_json):
+        text = parsed_json["text"]
+
+        prompt = (
+            "You are a recipe parsing tool.\n"
+            "Given a plain text recipe including the title, ingredients, and instructions,\n"
+            "extract ONLY this information in strict JSON format like:\n"
+            "{\n"
+            "  \"title\": \"...\",\n"
+            "  \"ingredients\": [\"...\"],\n"
+            "  \"instructions\": [\"...\"]\n"
+            "}\n\n"
+            "TEXT:\n" + text[:4000]  # limit to avoid token overload
+        )
+
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0
+            )
+            raw = response.choices[0].message.content
+            parsed = extract_json_from_openai_response(raw)
+
+            validated = RecipeAIResponseSchema().load(parsed)
+
+            if not validated["title"].strip() or not validated["ingredients"] or not validated["instructions"]:
+                return {"error": "Missing title, ingredients, or instructions."}, 400
+
+            recipe, _ = StoreModel.get_or_create(name=validated["title"])
+            ingredient_type = ItemType.get(ItemType.name == "ingredient")
+            instruction_type = ItemType.get(ItemType.name == "instruction")
+
+            for ing in validated["ingredients"]:
+                ItemModel.get_or_create(name=ing, store=recipe, type=ingredient_type)
+            for step in validated["instructions"]:
+                ItemModel.get_or_create(name=step, store=recipe, type=instruction_type)
+
+            return {"message": "Recipe extracted and saved", "recipe_id": recipe.id}
+
+        except Exception as e:
+            return {"error": f"OpenAI failed: {e}"}, 500
