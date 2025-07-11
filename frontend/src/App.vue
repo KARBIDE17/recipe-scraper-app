@@ -10,7 +10,7 @@ import { ref, onMounted } from 'vue'
 import AddItemForm from './components/AddItemForm.vue'
 import ItemList from './components/ItemList.vue'
 import NavBar from './components/NavBar.vue'
-import { getItems, deleteItem } from '@/api'
+import { getItems, deleteRecipe } from '@/api'
 
 const items = ref([])
 
@@ -25,7 +25,7 @@ const fetchItems = async () => {
 
 const handleDelete = async (id) => {
   try {
-    await deleteItem(id)
+    await deleteRecipe(id)
     await fetchItems()
   } catch (error) {
     console.error('Error deleting item:', error)

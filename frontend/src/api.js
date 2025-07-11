@@ -8,7 +8,9 @@ const api = axios.create({
 // ITEMS
 export const getItems = () => api.get('/item')
 export const createItem = (item) => api.post('/item', item)
-export const deleteItem = (id) => api.delete(`/item/${id}`)
+// RECIPES
+export const deleteRecipe = (id) => api.delete(`/recipes/${id}`)
+
 
 // STORES
 export const getStores = () => api.get('/store')

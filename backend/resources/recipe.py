@@ -131,3 +131,19 @@ class GetRecipeDetail(MethodView):
             "ingredients": ingredients,
             "instructions": instructions
         }
+
+@blp.route("/recipes/<int:recipe_id>")
+class DeleteRecipe(MethodView):
+    def delete(self, recipe_id):
+        store = StoreModel.get_or_none(StoreModel.id == recipe_id)
+        if not store:
+            return {"error": "Recipe not found"}, 404
+
+        # Delete associated items first
+        ItemModel.delete().where(ItemModel.store == store).execute()
+
+        # Then delete the store/recipe itself
+        store.delete_instance()
+
+        return {"message": "Recipe deleted successfully."}
+
