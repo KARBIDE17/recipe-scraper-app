@@ -15,19 +15,36 @@
   p(v-if="message") {{ message }}
   p(v-if="error" style="color: red") {{ error }}
 
-  form(@submit.prevent="extractFromText")
-    textarea(
-      v-model="manualText"
-      placeholder="Paste a recipe’s title, ingredients, and instructions here..."
-      rows="10"
+  h2.mt-8 Add a Recipe Manually
+
+  form(@submit.prevent="extractFromSplitInputs")
+    label.block.font-bold.mb-1 Title:
+    input.mb-4.w-full.border(
+      v-model="manualTitle"
+      type="text"
       required
+      placeholder="e.g. Grandma's Apple Pie"
     )
-    button(type="submit") Extract from Text
-  
+
+    label.block.font-bold.mb-1 Ingredients (one per line):
+    textarea.mb-4.w-full.border(
+      v-model="manualIngredients"
+      rows="5"
+      placeholder="1 cup sugar\n2 eggs\n..."
+    )
+
+    label.block.font-bold.mb-1 Instructions (one per line):
+    textarea.mb-4.w-full.border(
+      v-model="manualInstructions"
+      rows="6"
+      placeholder="1. Preheat oven to 350F\n2. Mix ingredients\n..."
+    )
+
+    button(type="submit") Extract from Form
+
   p(v-if="loadingText") Extracting recipe...
   p(v-if="textMessage") {{ textMessage }}
   p(v-if="textError" style="color: red") {{ textError }}
-  
 </template>
 
 <script setup>
@@ -38,7 +55,10 @@ const url = ref('')
 const loading = ref(false)
 const message = ref('')
 const error = ref('')
-const manualText = ref('')
+
+const manualTitle = ref('')
+const manualIngredients = ref('')
+const manualInstructions = ref('')
 const loadingText = ref(false)
 const textMessage = ref('')
 const textError = ref('')
@@ -58,15 +78,20 @@ const extractRecipe = async () => {
   }
 }
 
-const extractFromText = async () => {
+const extractFromSplitInputs = async () => {
   loadingText.value = true
   textMessage.value = ''
   textError.value = ''
 
+  const combinedText = `Title: ${manualTitle.value.trim()}\n\nIngredients:\n${manualIngredients.value.trim()}\n\nInstructions:\n${manualInstructions.value.trim()}`
+
   try {
-    const res = await api.post('/extract-text-recipe', { text: manualText.value })
+    const res = await api.post('/extract-text-recipe', { text: combinedText })
     textMessage.value = res.data.message
-    manualText.value = ''
+
+    manualTitle.value = ''
+    manualIngredients.value = ''
+    manualInstructions.value = ''
   } catch (err) {
     textError.value = err.response?.data?.error || 'Failed to extract recipe.'
   } finally {
@@ -75,9 +100,8 @@ const extractFromText = async () => {
 }
 </script>
 
-
 <style scoped>
-.home {
+#home {
   padding: 2rem;
 }
 </style>
