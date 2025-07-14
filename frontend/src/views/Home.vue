@@ -50,6 +50,7 @@
 <script setup>
 import { ref } from 'vue'
 import api from '@/api'
+import '@/assets/styles/fonts.scss'
 
 const url = ref('')
 const loading = ref(false)

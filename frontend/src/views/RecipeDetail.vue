@@ -1,6 +1,6 @@
 <template lang="pug">
 section
-  h1.text-2xl.font-bold.mb-2 {{ recipe.name }}
+  h1 {{ recipe.name }}
 
   h2.text-xl.mt-4 Ingredients
   ul.list-disc.pl-5
@@ -15,6 +15,7 @@ section
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/api'
+import '@/assets/styles/fonts.scss'
 
 const route = useRoute()
 const recipe = ref({
@@ -36,5 +37,11 @@ onMounted(async () => {
 <style scoped>
 section {
   padding: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-family: Gin;
 }
 </style>

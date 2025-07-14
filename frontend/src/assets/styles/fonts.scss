@@ -1,10 +1,24 @@
 @font-face {
   font-family: 'Helvetica';
-  src: url('@/assets/fonts/Helvetica LT Pro Roman.ttf') format('ttf');
+  src: url('@/assets/fonts/Helvetica LT Pro Roman.ttf') format('truetype');
   font-weight: normal;
 }
 @font-face {
   font-family: 'Helvetica';
-  src: url('@/assets/fonts/Helvetica LT Pro Bold.ttf') format('ttf');
+  src: url('@/assets/fonts/Helvetica LT Pro Bold.ttf') format('truetype');
   font-weight: bold;
+}
+@font-face {
+  font-family: 'Gin';
+  src: url('@/assets/fonts/Gin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+    font-family: 'Bungee';
+    src: url('@/assets/fonts/Bungee Shade.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }

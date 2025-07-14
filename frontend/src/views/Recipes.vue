@@ -49,6 +49,10 @@ section {
   padding: 2rem;
 }
 
+h1 {
+  font-family: 'Bungee', sans-serif;
+}
+
 li {
   display: flex;
   align-items: center;
@@ -57,6 +61,7 @@ li {
   font-size: 2rem;
   border-bottom: grey 1px solid;
   margin-bottom: 2rem;
+  font-family: 'Gin';
 }
 
 .left {

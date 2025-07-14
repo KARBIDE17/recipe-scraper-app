@@ -93,7 +93,7 @@ class ExtractRecipe(MethodView):
 
         except Exception as e:
             return {
-                "error": f"OpenAI failed: {e}",
+                "error": f"OpenAI failed: {e} please use form below",
                 "raw_response": response.choices[0].message.content if 'response' in locals() else ''
             }, 500
 
@@ -180,7 +180,7 @@ class ExtractFromText(MethodView):
             validated = RecipeAIResponseSchema().load(parsed)
 
             if not validated["title"].strip() or not validated["ingredients"] or not validated["instructions"]:
-                return {"error": "Missing title, ingredients, or instructions."}, 400
+                return {"error": "Missing title, ingredients, or instructions. Use form below..."}, 400
 
             recipe, _ = StoreModel.get_or_create(name=validated["title"])
             ingredient_type = ItemType.get(ItemType.name == "ingredient")

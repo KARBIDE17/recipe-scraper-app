@@ -12,6 +12,7 @@ import AddItemForm from './components/AddItemForm.vue'
 import ItemList from './components/ItemList.vue'
 import NavBar from './components/NavBar.vue'
 import { getItems, deleteRecipe } from '@/api'
+import '@/assets/styles/fonts.scss'
 
 const items = ref([])
 
