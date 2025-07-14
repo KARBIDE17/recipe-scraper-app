@@ -4,8 +4,11 @@ section
 
   ul
     li(v-for="recipe in recipes" :key="recipe.id")
-      router-link(:to="`/recipes/${recipe.id}`") {{ recipe.name }}
-      button.text-red-600.ml-4(@click="handleDelete(recipe.id)") ✕
+      .left
+        router-link(:to="`/recipes/${recipe.id}`") {{ recipe.name }}
+      .right
+        button.edit-button(@click="editRecipe(`/recipes/${recipe.id}`)") EDIT
+        button.delete-button(@click="handleDelete(recipe.id)") DELETE X
 
 </template>
 
@@ -39,3 +42,50 @@ const handleDelete = async (id) => {
 
 onMounted(fetchRecipes)
 </script>
+
+<style scoped>
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 2rem;
+  border-bottom: grey 1px solid;
+  margin-bottom: 2rem;
+}
+
+.left {
+  flex: 1;
+}
+
+.right {
+  display: flex;
+  margin-right: 1rem;
+}
+
+.edit-button,
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.edit-button {
+  color: #3490dc;
+  margin-right: 2rem;
+}
+
+.delete-button {
+  color: #e3342f;
+}
+
+a {
+  text-decoration: none;
+  color: #1a202c;
+  text-decoration: underline;
+}
+
+
+</style>
