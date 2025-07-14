@@ -9,13 +9,16 @@ nav.navbar
   background-color: #333;
   padding: 1rem;
   display: flex;
-  gap: 1rem;
+  margin-right: 1rem;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
+  font-family: Helvetica;
   font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: 1rem;
 }
 
 .nav-link.router-link-exact-active {

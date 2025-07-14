@@ -45,6 +45,10 @@ onMounted(fetchRecipes)
 
 <style scoped>
 
+section {
+  padding: 2rem;
+}
+
 li {
   display: flex;
   align-items: center;

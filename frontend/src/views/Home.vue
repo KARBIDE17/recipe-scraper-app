@@ -1,15 +1,15 @@
 <template lang="pug">
 #home
-  h1 Add a Recipe by URL
+  h2 Add a Recipe by URL
 
-  form(@submit.prevent="extractRecipe")
+  form.url-form(@submit.prevent="extractRecipe")
     input(
       v-model="url"
       type="text"
       placeholder="Paste a recipe URL here..."
       required
     )
-    button(type="submit") Extract Recipe
+    button(type="submit") Extract From URL
 
   p(v-if="loading") Extracting recipe...
   p(v-if="message") {{ message }}
@@ -17,7 +17,7 @@
 
   h2.mt-8 Add a Recipe Manually
 
-  form(@submit.prevent="extractFromSplitInputs")
+  form.manual-form(@submit.prevent="extractFromSplitInputs")
     label.block.font-bold.mb-1 Title:
     input.mb-4.w-full.border(
       v-model="manualTitle"
@@ -104,4 +104,22 @@ const extractFromSplitInputs = async () => {
 #home {
   padding: 2rem;
 }
+
+.manual-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+button {
+  background-color: #4a4a4a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  margin: 0.5rem;
+}
+
 </style>

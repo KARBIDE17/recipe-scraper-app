@@ -2,7 +2,7 @@
 #app
   NavBar
   .appWrapper
-    h1 Recipe Scraper
+    h1 {{ NavBar.title }}
     router-view
 </template>
 
@@ -37,7 +37,7 @@ onMounted(fetchItems)
 </script>
 
 <style>
-body {
+#body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   margin: 2rem;
   background-image: url('@/assets/bg.jpg');
@@ -50,7 +50,5 @@ body {
   border-radius: 1rem;
   z-index: 0;
 }
-h1 {
-  margin-bottom: 1rem;
-}
+
 </style>

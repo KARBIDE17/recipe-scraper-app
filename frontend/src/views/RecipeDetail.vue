@@ -33,3 +33,8 @@ onMounted(async () => {
 })
 </script>
 
+<style scoped>
+section {
+  padding: 2rem;
+}
+</style>
