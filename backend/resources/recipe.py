@@ -146,6 +146,37 @@ class DeleteRecipe(MethodView):
         store.delete_instance()
 
         return {"message": "Recipe deleted successfully."}
+    
+class UpdateRecipeSchema(Schema):
+    title = fields.String(required=True)
+    ingredients = fields.List(fields.String(), required=True)
+    instructions = fields.List(fields.String(), required=True)
+
+@blp.route("/recipes/<int:recipe_id>")
+class EditRecipe(MethodView):
+    @blp.arguments(UpdateRecipeSchema)
+    def put(self, data, recipe_id):
+        store = StoreModel.get_or_none(StoreModel.id == recipe_id)
+        if not store:
+            abort(404, message="Recipe not found")
+
+        # Update title
+        store.name = data['title']
+        store.save()
+
+        # Delete existing items
+        ItemModel.delete().where(ItemModel.store == store).execute()
+
+        # Re-insert new items
+        ingredient_type = ItemType.get(ItemType.name == "ingredient")
+        instruction_type = ItemType.get(ItemType.name == "instruction")
+
+        for ing in data['ingredients']:
+            ItemModel.create(name=ing, store=store, type=ingredient_type)
+        for step in data['instructions']:
+            ItemModel.create(name=step, store=store, type=instruction_type)
+
+        return {"message": "Recipe updated successfully"}
 
 class ExtractFromTextSchema(Schema):
     text = fields.String(required=True)

@@ -1,37 +1,87 @@
 <template lang="pug">
 section
-  h1 {{ recipe.name }}
+  // Title
+  .editable-block
+    h1(v-if="!editing.title") {{ form.title }}
+    input(v-else v-model="form.title")
+    button(@click="toggleEdit('title')") {{ editing.title ? '✅' : 'Edit' }}
 
-  h2 Ingredients
-  ul
-    li(v-for="ing in recipe.ingredients" :key="ing") {{ ing }}
+  // Ingredients
+  .editable-block
+    h2 Ingredients
+    button(@click="toggleEdit('ingredients')") {{ editing.ingredients ? '✅' : 'Edit' }}
+    ul(v-if="!editing.ingredients")
+      li(v-for="(ing, i) in form.ingredients" :key="i") {{ ing }}
+    textarea(
+      v-else
+      v-model="form.ingredientsText"
+      rows="6"
+    )
 
-  h2 Instructions
-  ol
-    li(v-for="step in recipe.instructions" :key="step") {{ step }}
+  // Instructions
+  .editable-block
+    h2 Instructions
+    button(@click="toggleEdit('instructions')") {{ editing.instructions ? '✅' : 'Edit' }}
+    ol(v-if="!editing.instructions")
+      li(v-for="(step, i) in form.instructions" :key="i") {{ step }}
+    textarea(
+      v-else
+      v-model="form.instructionsText"
+      rows="8"
+    )
+
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import api from '@/api'
 import '@/assets/styles/fonts.scss'
 
 const route = useRoute()
-const recipe = ref({
-  name: '',
-  ingredients: [],
-  instructions: []
+const router = useRouter()
+const recipe = ref(null)
+
+const editing = ref({
+  title: false,
+  ingredients: false,
+  instructions: false,
 })
 
-onMounted(async () => {
-  try {
-    const response = await api.get(`http://localhost:5005/recipes/${route.params.id}`)
-    recipe.value = response.data
-  } catch (error) {
-    console.error('Error fetching recipe:', error)
-  }
+const form = ref({
+  title: '',
+  ingredients: [],
+  instructions: [],
+  ingredientsText: '',
+  instructionsText: ''
 })
+
+const fetchRecipe = async () => {
+  const res = await api.get(`/recipes/${route.params.id}`)
+  recipe.value = res.data
+  form.value.title = res.data.name
+  form.value.ingredients = res.data.ingredients
+  form.value.instructions = res.data.instructions
+  form.value.ingredientsText = res.data.ingredients.join('\n')
+  form.value.instructionsText = res.data.instructions.join('\n')
+}
+
+const updateRecipe = async () => {
+  await api.put(`/recipes/${route.params.id}`, {
+    title: form.value.title,
+    ingredients: form.value.ingredientsText.split('\n').map(s => s.trim()).filter(Boolean),
+    instructions: form.value.instructionsText.split('\n').map(s => s.trim()).filter(Boolean)
+  })
+  await fetchRecipe()
+}
+
+const toggleEdit = async (field) => {
+  if (editing.value[field]) {
+    await updateRecipe()
+  }
+  editing.value[field] = !editing.value[field]
+}
+onMounted(fetchRecipe)
 </script>
 
 <style scoped>
@@ -60,4 +110,18 @@ li {
   margin: 0.5rem 0;
   font-family: Gin;
 }
+
+.editable-block {
+  display: flex;
+  flex-direction: row;
+}
+ button {
+  height: 1.5rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  margin-top: 1rem;
+  text-decoration: underline;
+ }
+
 </style>
