@@ -2,12 +2,12 @@
 section
   h1 {{ recipe.name }}
 
-  h2.text-xl.mt-4 Ingredients
-  ul.list-disc.pl-5
+  h2 Ingredients
+  ul
     li(v-for="ing in recipe.ingredients" :key="ing") {{ ing }}
 
-  h2.text-xl.mt-4 Instructions
-  ol.list-decimal.pl-5
+  h2 Instructions
+  ol
     li(v-for="step in recipe.instructions" :key="step") {{ step }}
 </template>
 
@@ -40,8 +40,24 @@ section {
 }
 
 h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-family: Bungee;
+  box-sizing: border-box;
+  margin: 0 0 1rem 0;
+  color: #1d1d1d;
+  line-height: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-family: Gin;
+  margin: 1rem 0;
+  color:#1d1d1d;
+}
+
+li {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
   font-family: Gin;
 }
 </style>

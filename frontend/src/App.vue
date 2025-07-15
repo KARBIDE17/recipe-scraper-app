@@ -2,7 +2,6 @@
 #app
   NavBar
   .appWrapper
-    h1 {{ NavBar.title }}
     router-view
 </template>
 
@@ -38,18 +37,27 @@ onMounted(fetchItems)
 </script>
 
 <style>
+section {
+ 
+}
+
 #body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   margin: 2rem;
   background-image: url('@/assets/bg.jpg');
+  background-color: rgba(92, 92, 92, 0.479);
   background-size: cover;
   overflow: hidden;
-  z-index: -1;
+  margin-top: 2rem;
 }
 #app {
-  background-color: rgba(92, 92, 92, 0.379);
+  background-color: rgba(92, 92, 92, 0.479);
   border-radius: 1rem;
-  z-index: 0;
+}
+.app-wrapper {
+  background-color: rgba(255, 255, 255, 0.85);
+  min-height: 100vh;
+  padding: 2rem;
 }
 
 </style>

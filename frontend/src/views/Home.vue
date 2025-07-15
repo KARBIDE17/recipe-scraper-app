@@ -6,7 +6,8 @@
     input(
       v-model="url"
       type="text"
-      placeholder="Paste a recipe URL here..."
+      rows="3"
+      placeholder="Paste recipe URL here..."
       required
     )
     button(type="submit") Extract From URL
@@ -15,29 +16,29 @@
   p(v-if="message") {{ message }}
   p(v-if="error" style="color: red") {{ error }}
 
-  h2.mt-8 Add a Recipe Manually
+  h2 Add a Recipe Manually
 
   form.manual-form(@submit.prevent="extractFromSplitInputs")
-    label.block.font-bold.mb-1 Title:
-    input.mb-4.w-full.border(
+    label Title:
+    input(
       v-model="manualTitle"
       type="text"
       required
-      placeholder="e.g. Grandma's Apple Pie"
+      placeholder="e.g. Huevos Rancheros..."
     )
 
-    label.block.font-bold.mb-1 Ingredients (one per line):
-    textarea.mb-4.w-full.border(
+    label Ingredients (one per line):
+    textarea(
       v-model="manualIngredients"
       rows="5"
-      placeholder="1 cup sugar\n2 eggs\n..."
+      placeholder="1 cup beans\n2 tsp Chili Powder\n3 Serrano Peppers\n..."
     )
 
-    label.block.font-bold.mb-1 Instructions (one per line):
-    textarea.mb-4.w-full.border(
+    label Instructions (one per line):
+    textarea(
       v-model="manualInstructions"
       rows="6"
-      placeholder="1. Preheat oven to 350F\n2. Mix ingredients\n..."
+      placeholder="1. Preheat oven to 350F\n2. Mix ingredients\n3. Heat Oil\n..."
     )
 
     button(type="submit") Extract from Form
@@ -103,7 +104,7 @@ const extractFromSplitInputs = async () => {
 
 <style scoped>
 #home {
-  padding: 2rem;
+  padding: 0rem 0rem 1rem 2rem;
 }
 
 .manual-form {
@@ -121,6 +122,22 @@ button {
   border-radius: 0.25rem;
   cursor: pointer;
   margin: 0.5rem;
+  font-family: Gin;
+  font-size: 1rem;
+}
+
+label {
+  font-family: Gin;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1d1d1d;
+}
+
+h2 {
+  font-family: 'Bungee', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: -1rem;
 }
 
 </style>

@@ -9,19 +9,19 @@ nav.navbar
   background-color: #333;
   padding: 1rem;
   display: flex;
-  margin-right: 1rem;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
-  font-family: Helvetica;
+  font-family: Gin;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-right: 1rem;
 }
 
 .nav-link.router-link-exact-active {
   text-decoration: underline;
+  text-underline-position: above;
 }
 </style>
