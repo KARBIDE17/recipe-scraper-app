@@ -8,7 +8,6 @@ section
       .right
         button.edit-button(@click="editRecipe(`/recipes/${recipe.id}`)") EDIT
         button.delete-button(@click="handleDelete(recipe.id)") DELETE X
-
 </template>
 
 <script setup>
@@ -63,7 +62,7 @@ li {
   justify-content: space-between;
   /* padding: 0.5rem 0; */
   font-size: 2rem;
-  border-bottom: grey 1px solid;
+  border-bottom: grey 3px solid;
   margin-bottom: 2rem;
   font-family: 'Gin';
   color: #1d1d1d;
@@ -87,6 +86,7 @@ li {
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .edit-button {
@@ -102,6 +102,7 @@ a {
   text-decoration: none;
   color: #1d1d1d;
   text-decoration: underline;
+  margin-bottom: 0.5rem;
 }
 
 

@@ -138,6 +138,8 @@ h2 {
   font-family: 'Bungee', sans-serif;
   font-size: 2.5rem;
   margin-bottom: -1rem;
+  margin-top: 0rem;
+  color: #1d1d1d;
 }
 
 </style>

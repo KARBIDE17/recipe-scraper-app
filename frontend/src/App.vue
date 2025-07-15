@@ -49,10 +49,11 @@ section {
   background-size: cover;
   overflow: hidden;
   margin-top: 2rem;
+  height: auto;
 }
 #app {
-  background-color: rgba(92, 92, 92, 0.479);
-  border-radius: 1rem;
+  background-color: rgba(92, 92, 92, 0.6);
+  height: auto;
 }
 .app-wrapper {
   background-color: rgba(255, 255, 255, 0.85);
