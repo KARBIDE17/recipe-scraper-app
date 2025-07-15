@@ -1,34 +1,34 @@
 <template lang="pug">
 section
   // Title
-  .editable-block
+  .title
     h1(v-if="!editing.title") {{ form.title }}
     input(v-else v-model="form.title")
-    button(@click="toggleEdit('title')") {{ editing.title ? '✅' : 'Edit' }}
+    button(@click="toggleEdit('title')") {{ editing.title ? 'Save Changes' : 'Edit' }}
 
   // Ingredients
-  .editable-block
+  .ing
     h2 Ingredients
-    button(@click="toggleEdit('ingredients')") {{ editing.ingredients ? '✅' : 'Edit' }}
-    ul(v-if="!editing.ingredients")
-      li(v-for="(ing, i) in form.ingredients" :key="i") {{ ing }}
-    textarea(
-      v-else
-      v-model="form.ingredientsText"
-      rows="6"
-    )
+    button(@click="toggleEdit('ingredients')") {{ editing.ingredients ? 'Save Changes' : 'Edit' }}
+  ul(v-if="!editing.ingredients")
+    li(v-for="(ing, i) in form.ingredients" :key="i") {{ ing }}
+  textarea(
+    v-else
+    v-model="form.ingredientsText"
+    rows="6"
+  )
 
   // Instructions
-  .editable-block
+  .inst
     h2 Instructions
-    button(@click="toggleEdit('instructions')") {{ editing.instructions ? '✅' : 'Edit' }}
-    ol(v-if="!editing.instructions")
-      li(v-for="(step, i) in form.instructions" :key="i") {{ step }}
-    textarea(
-      v-else
-      v-model="form.instructionsText"
-      rows="8"
-    )
+    button(@click="toggleEdit('instructions')") {{ editing.instructions ? 'Save Changes' : 'Edit' }}
+  ol(v-if="!editing.instructions")
+    li(v-for="(step, i) in form.instructions" :key="i") {{ step }}
+  textarea(
+    v-else
+    v-model="form.instructionsText"
+    rows="8"
+  )
 
 </template>
 
@@ -111,7 +111,9 @@ li {
   font-family: Gin;
 }
 
-.editable-block {
+.title,
+.ing,
+.inst {
   display: flex;
   flex-direction: row;
 }
@@ -123,5 +125,33 @@ li {
   margin-top: 1rem;
   text-decoration: underline;
  }
+
+ input {
+  width: 100%;
+  font-size: 2.2rem;
+  font-family: Bungee;
+  padding: 0.5rem;
+  border: 1px solid #1d1d1d;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: #808080;
+}
+
+
+ textarea {
+  width: 100%;
+  height: 300px; /* or whatever height you want */
+  resize: vertical; /* lets you drag to resize if needed */
+  font-size: 1.1rem;
+  font-family: Gin, sans-serif;
+  padding: 1rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  border: 1px solid #1d1d1d;
+  border-radius: 6px;
+  background-color: #808080;
+}
+
 
 </style>

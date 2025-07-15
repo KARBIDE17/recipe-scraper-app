@@ -5,9 +5,8 @@ section
     li(v-for="recipe in recipes" :key="recipe.id")
       .left
         router-link(:to="`/recipes/${recipe.id}`") {{ recipe.name }}
-      //- .right
-      //-   button.edit-button(@click="editRecipe(`/recipes/${recipe.id}`)") EDIT
-      //-   button.delete-button(@click="handleDelete(recipe.id)") DELETE X
+      .right
+        button.delete-button(@click="handleDelete(recipe.id)") DELETE X
 </template>
 
 <script setup>
